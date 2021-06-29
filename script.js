@@ -40,28 +40,27 @@ var description = $('.description');
 var todo = ["","","","","","","","",""];
 
 topHTML.text(moment().format("MMM Do, YYYY"));
-checkTime(hourHTML)
-
-// console.log(parseInt(($('.5')).children(1).html()));
-
-
-
-// console.log(parseInt(($('.5')).children(1).html()) == moment().format('h'));
-
 console.log(($('#0')).children(1).html());
+checkTime();
 
-console.log(hourHTML);
 
-$(topHTML)
-
-function checkTime(hourHTML)
+// Checks the tiem and assigns the color to which it represents
+// Time past = Gray, Current Time = red, Time future = green
+// REASON FOR IDS: The IDS are used to run through each ID, the problem with the classes we have right now that is if we assign to it itll only go once since they all share the same name
+function checkTime()
 {
-    currentHour = moment().format('h');
+    $('.time-block').each(function ()
+    {
+        if (parseInt(($(this)).attr('id')) == moment().format('h'))
+        {$(this).children('.description').addClass('present');}
 
-    
+        else if (parseInt(($(this)).attr('id')) > moment().format('h'))
+        {$(this).children('.description').addClass('future');}
+
+        else
+        {$(this).children('.description').addClass('past');}
+    })
 }
-
-console.log(description);
 
 function checkTodo()
 {
