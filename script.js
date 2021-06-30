@@ -42,6 +42,52 @@ var hourHTML = $('.hour');
 var rowHTML = $('.row');
 var description = $('.description');
 var todo = ["","","","","","","","",""];
+var todo = [
+    {
+        time: 9,
+        text: ""
+    },
+
+    {
+        time: 10,
+        text: ""
+    },
+
+    {
+        time: 11,
+        text: ""
+    },
+
+    {
+        time: 12,
+        text: ""
+    },
+
+    {
+        time: 13,
+        text: ""
+    },
+
+    {
+        time: 14,
+        text: ""
+    },
+
+    {
+        time: 15,
+        text: ""
+    },
+
+    {
+        time: 16,
+        text: ""
+    },
+
+    {
+        time: 17,
+        text: ""
+    }
+]
 
 //Assigns Time
 topHTML = topHTML.text(moment().format("MMMM Do YYYY"));
@@ -73,6 +119,9 @@ function checkTodo()
     
     $('.time-block').each(function ()
     {
+        // if (todo.time == parseInt(($(this)).attr('id'))){}
+
+       
         
     })
 }
@@ -81,6 +130,5 @@ $('.saveBtn').click(function (event)
 {
     console.log(event.target);
     var t = $(event.target);
-    console.log(t.parent().children(0));
-    console.log(rowHTML[0]);
+    console.log(t.siblings('.description').val());
 })
