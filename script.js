@@ -24,111 +24,62 @@
 //      if (currenthour == true)
 //      .addclass (1-3)
 
-// DONE-----------------------------------------------------------------------------------------------------------------
+
 // WHEN I click the save button for that timeblock
 // THEN the text for that event is saved in local storage
 //      DOM Manipulation
 //      Give each input an ID that saves the info
 
+
 // WHEN I refresh the page
 // THEN the saved events persist
 //      Localstorage get, if no local storage leave alone.
 
+// DONE-----------------------------------------------------------------------------------------------------------------
 checkTime();
+checkTodo();
 
-// GLOBAL VARIABLES
-var topHTML = $('#currentDay');
-var hourHTML = $('.hour');
-var rowHTML = $('.row');
-var description = $('.description');
-var todo = ["","","","","","","","",""];
-var todo = [
-    {
-        time: 9,
-        text: ""
-    },
-
-    {
-        time: 10,
-        text: ""
-    },
-
-    {
-        time: 11,
-        text: ""
-    },
-
-    {
-        time: 12,
-        text: ""
-    },
-
-    {
-        time: 13,
-        text: ""
-    },
-
-    {
-        time: 14,
-        text: ""
-    },
-
-    {
-        time: 15,
-        text: ""
-    },
-
-    {
-        time: 16,
-        text: ""
-    },
-
-    {
-        time: 17,
-        text: ""
-    }
-]
-
-//Assigns Time
-topHTML = topHTML.text(moment().format("MMMM Do YYYY"));
-
+// GLOBAL VARIABLE
+var topHTML = $('#currentDay'); // Grabs the top ID
+topHTML = topHTML.text(moment().format("MMMM Do YYYY")); // Assigns the time to the jumbotron to be displayed
 // Checks the tiem and assigns the color to which it represents
 // Time past = Gray, Current Time = red, Time future = green
 // REASON FOR IDS: The IDS are used to run through each ID, the problem with the classes we have right now that is if we assign to it itll only go once since they all share the same name
-console.log(moment().format('H'));
 
 function checkTime()
 {
     $('.time-block').each(function ()
     {
-        console.log(parseInt(($(this)).attr('id')));
-        if (parseInt(($(this)).attr('id')) == moment().format('H'))
-        {$(this).children('.description').addClass('present');}
+        var timeID = parseInt(($(this)).attr('id')); // Grabs the time-blocks ID (used for comparing to hour)
+        var hour = moment().format('H'); // Gets the current hour (NUMBER ONLY)
+        var textarea = $(this).children('.description') // Grabs the textarea div (TO BE ABLE TO MANIPULATE CLASS AND CHANGE COLOR)
 
-        else if (parseInt(($(this)).attr('id')) > moment().format('H'))
-        {$(this).children('.description').addClass('future');}
-
+        if (timeID == hour)
+        {textarea.addClass('present');}
+        else if (timeID > hour)
+        {textarea.addClass('future');}
         else
-        {$(this).children('.description').addClass('past');}
+        {textarea.addClass('past');}
     })
+
 }
 
 function checkTodo()
 {
-    check = localStorage.getItem("saved");
-    
     $('.time-block').each(function ()
     {
-        // if (todo.time == parseInt(($(this)).attr('id'))){}
+        if (localStorage.getItem(parseInt(($(this)).attr('id'))) === null)
+        {return;}
 
-       
-        
+        else
+        {
+            $(this).children('.description').val(localStorage.getItem(parseInt(($(this)).attr('id'))));
+        }
     })
 }
 
 $('.saveBtn').click(function (event) 
 {
-    console.log(event.target);
     var t = $(event.target);
-    console.log(t.siblings('.description').val());
+    localStorage.setItem(parseInt(t.parent().attr('id')), t.siblings('.description').val())
 })
