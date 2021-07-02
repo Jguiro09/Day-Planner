@@ -17,6 +17,7 @@
 // THEN I can enter an event
 //      <input> / <text area>   
 //      event.target
+// 
 
 
 // WHEN I view the timeblocks for that day
@@ -34,18 +35,18 @@
 // WHEN I refresh the page
 // THEN the saved events persist
 //      Localstorage get, if no local storage leave alone.
-
 // DONE-----------------------------------------------------------------------------------------------------------------
+
 checkTime();
 checkTodo();
 
 // GLOBAL VARIABLE
 var topHTML = $('#currentDay'); // Grabs the top ID
 topHTML = topHTML.text(moment().format("MMMM Do YYYY")); // Assigns the time to the jumbotron to be displayed
-// Checks the tiem and assigns the color to which it represents
+
+// Checks the time and assigns the color to which it represents
 // Time past = Gray, Current Time = red, Time future = green
 // REASON FOR IDS: The IDS are used to run through each ID, the problem with the classes we have right now that is if we assign to it itll only go once since they all share the same name
-
 function checkTime()
 {
     $('.time-block').each(function ()
@@ -61,7 +62,6 @@ function checkTime()
         else
         {textarea.addClass('past');}
     })
-
 }
 
 function checkTodo()
@@ -72,9 +72,7 @@ function checkTodo()
         {return;}
 
         else
-        {
-            $(this).children('.description').val(localStorage.getItem(parseInt(($(this)).attr('id'))));
-        }
+        {$(this).children('.description').val(localStorage.getItem(parseInt(($(this)).attr('id'))));}
     })
 }
 
